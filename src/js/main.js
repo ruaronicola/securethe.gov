@@ -8,10 +8,13 @@ $(document).ready(function() {
             contentType: "json",
             success: function(data){
                   stats = data[0]
-                  console.log(stats)
             }
         })
     ).then(function( data, textStatus, jqXHR ){
+        // Inject doughnut labels data
+        $("#chart-1-labels").text(stats["valid_https_perc"])
+        $("#chart-2-labels").text(stats["defaults_to_https_perc"])
+
         // Initialize doughnut charts
         options = { 
             legend: {display: false},
@@ -61,7 +64,6 @@ $(document).ready(function() {
         "createdRow": function( row, data, dataIndex ) {
 			var live = data[4]
 			if (live){
-                console.log("inside")
 				//$($("#data-table").cell(row,0).node()).addClass("testtesttest")
 			}
 		},
