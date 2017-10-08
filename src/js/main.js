@@ -33,7 +33,7 @@ $(document).ready(function() {
         data = {
             datasets: [{
                 data: [stats["valid_https_perc"], 100-stats["valid_https_perc"]],
-                backgroundColor: ["#00aeb3", "#f0f0f0"]
+                backgroundColor: ["#06c", "#e0e0e0"]
             }],
             options: options
         }
@@ -45,7 +45,7 @@ $(document).ready(function() {
         data = {
             datasets: [{
                 data: [stats["defaults_to_https_perc"], 100-stats["defaults_to_https_perc"]],
-                backgroundColor: ["#00aeb3", "#f0f0f0"]
+                backgroundColor: ["#06c", "#e0e0e0"]
             }],
             options: options
         }
