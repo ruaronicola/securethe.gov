@@ -1,52 +1,81 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+<!--<html class="no-js" lang="it">-->
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge"/>
+ 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>SecureThe.gov | Index</title>
 
-		<!-- DataTables styles -->
+		<!-- AGID Font-->
+		 <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400italic,700" rel='stylesheet' type='text/css' />
+
+		 <!--FONTAWESOME-->
+		 <script src="https://use.fontawesome.com/7e8fd4c773.js"></script>
+
+		 <!-- DataTables styles -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+
+		<!--BOOTSTRAP-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+		<!--AGID CSS-->
+		<link rel="stylesheet" type="text/css" href="build/build.css" /> 
+		<!--info: rimossi tutti gli !important-->
+
+
+		<!--CUSTOM CSS-->
+		<link rel="stylesheet" type="text/css" href="src/css/custom.css" />
+
+		
+
 	</head>
-	<body>
-		<header class="site-header" role="banner">
-			<div class="disclaimer">
-				Possible cookies or beta disclaimer
-			</div> <!-- /Disclaimer -->
-			<nav role="nav">
+	<body class="t-Pac">
+		<header class="row Header u-hiddenPrint" role="banner">
+			<div class="Header-banner site-header">
+				<div class="disclaimer Header-owner Headroom-hideme">
+					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+					Possible cookies or beta disclaimer
+				</div> <!-- /Disclaimer -->
+			</div>
+			<nav role="nav" class="container-fluid">
 				<div id="main-nav">
 					<h1 id="branding">
 						<a href="#">SecureThe.Gov</a>
 					</h1>
 					<ul id="right-nav">
 						<li>
-							<a href="#">Home</a>
+							<a href="#">About</a>
 						</li>
 						<li>
-							<a href="#">About</a>
+							<a href="#">Metodologia</a>
 						</li>
 					</ul>
 				</div>
 			</nav> <!-- /Nav -->
 		</header> <!-- /Header -->
 
-		<section id="dashboard">
+		<section  id="dashboard">
+				<div>
+					<h1>Tutti i siti governativi dovrebbero essere sicuri</h1>
+					<h2>Il protocollo HTTPS abilita la sicurezza, protegge la privacy e previene la censura <br/> Noi tracciamo al sua adozione.</h2>
+				</div>
 			<!-- Doughnut chart -->
-			<canvas id="chart-1"></canvas>
-
-
-			Dashboard section content
+				<div class="row">
+					<canvas id="chart-1"></canvas>
+					<canvas id="chart-2"></canvas>
+				</div>
 		</section> <!-- /Dashboard -->
 
-		<section id="content">
+		<section  class="container" id="content">
 			<table id="data-table">
 				<thead>
 					<tr>
 						<th>Domain</th>
-						<th>Valid HTTPS</th>
-						<th>Default to HTTPS</th>
-						<th>HSTS</th>
-						<th>HSTS preloaded</th>
+						<th class="no-mobile">Valid HTTPS</th>
+						<th class="no-mobile">Default to HTTPS</th>
+						<th class="no-mobile">HSTS</th>
+						<th class="no-mobile">HSTS preloaded</th>
 						<th>Grade</th>
 					</tr>
 				</thead>
@@ -66,6 +95,10 @@
 		<!-- Chart.js scripts -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+
+		<!-- AGID JS-->
+		<script type="text/javascript" src="build/vendor/modernizr.js"></script>
+		<script type="text/javascript" src="build/IWT.min.js"></script>
 
 		<!-- Project specific scripts -->
 		<script type="text/javascript" src="src/js/main.js"></script>

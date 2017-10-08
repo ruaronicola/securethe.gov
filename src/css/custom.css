@@ -1,0 +1,89 @@
+/*generale*/
+
+.clear{
+	clear: all;
+}
+
+
+
+
+/*header*/
+
+.site-header div{
+	color: #fff; 
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.site-header i{
+	color: yellow;
+}
+
+nav, nav h1, nav a, nav a:hover{
+	background-color: #06c;
+	color: #fff;
+}
+
+nav h1{
+	font-weight: bold;
+}
+
+nav h1, nav ul li{
+	float: left;
+}
+
+nav ul{
+	float:right;
+}
+
+nav ul, nav h1 {
+	padding: 20px;
+}
+
+nav ul li{
+	margin: 10px;
+}
+
+
+
+/*dashboard*/
+
+#dashboard{
+	text-align: center;
+}
+
+#dashboard h1{
+	margin-top: 40px;
+}
+
+#dashboard h2{
+	margin-top: 30px;
+	margin-bottom: 80px;
+
+}
+
+
+canvas{
+	float:left;
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+
+/*content*/
+
+#content{
+	margin-top: 100px;
+}
+
+
+
+
+/* media query*/
+
+@media only screen and (max-width: 768px) {
+	.no-mobile{
+		display:none;
+	}
+}
