@@ -8,7 +8,10 @@
 	font-weight: bold;
 }
 
-
+.row{
+	margin-left: 0;
+	margin-right: 0;
+}
 
 
 /*header*/
@@ -58,20 +61,36 @@ nav ul li{
 }
 
 #dashboard h1{
-	margin-top: 80px;
+	margin-top: 50px;
 }
 
 #dashboard h2{
 	margin-top: 30px;
-	margin-bottom: 80px;
+	margin-bottom: 50px;
 
 }
 
+#dashboard .canvas{
+	float:left;
+	margin: 0 auto;
+}
+
+#dashboard a{
+	background-color: black;
+	color: #fff;
+	display:block;
+}
 
 canvas{
-	float:left;
-	max-width: 500px;
-	margin: 0 auto;
+	max-width: 1000px;
+	max-height: 1000px;
+}
+
+
+p#chart-1-label, p#chart-2-label{
+	margin-top: 20px;
+	font-size: 28px;
+	font-weight: bold;
 }
 
 
