@@ -1,6 +1,8 @@
+# README
+## Introduzione e configurazione
 Progetto di monitoraggio di adozione della cifratura HTTP sui domini della PA
 
-Descrizione delle risorse
+### Descrizione delle risorse
    - Docker container "domain-scan". Il container 'domain-scan' contiene un servizio che,
    dato in input un csv con un elenco di domini, restituisce un csv con dati strutturati per la consultazione.
    Le informazioni raccolte nel CSV di output forniscono lo stato di adozione dei certificati ssl per i domini interessati
@@ -13,11 +15,12 @@ Descrizione delle risorse
    Il container ngix è in ascolto sulle porte 5432 di postgres e 3000 di postgrest sul container "postgress"
 
 
-TODO
+### TODO
 yaml file docker compose
-buil ngix 
 
-INSTALLAZIONE
+build ngix 
+
+### INSTALLAZIONE
 
 Entrare nella cartella /docker
 Per ogni docker container lanciare
@@ -34,6 +37,11 @@ Successivamente controllare le immagini installate con
 E rinominarle con
   docker tag <id> nome:latest
 
-
 CREAZIONE DEL CONTAINER DOCKER
 docker run --name nome_del_container  nome_immagine
+
+## Screenshots
+#### Dashboard
+![screenshot 1](src/img/screenshot1.png)
+#### Pagination
+![screenshot 1](src/img/screenshot2.png)
