@@ -27,7 +27,7 @@ $(document).ready(function() {
         data = {
             datasets: [{
                 data: [stats["valid_https_perc"], 100-stats["valid_https_perc"]],
-                backgroundColor: ["#6ecd1b", "#ffffff"]
+                backgroundColor: ["#00aeb3", "#ffffff"]
             }],
             options: options
         }
@@ -39,7 +39,7 @@ $(document).ready(function() {
         data = {
             datasets: [{
                 data: [stats["defaults_to_https_perc"], 100-stats["defaults_to_https_perc"]],
-                backgroundColor: ["#6ecd1b", "#ffffff"]
+                backgroundColor: ["#00aeb3", "#ffffff"]
             }],
             options: options
         }
