@@ -12,8 +12,8 @@ $(document).ready(function() {
         })
     ).then(function( data, textStatus, jqXHR ){
         // Inject doughnut labels data
-        $("#chart-1-label").text(stats["valid_https_perc"].toString() + "%")
-        $("#chart-2-label").text(stats["defaults_to_https_perc"].toString() + "%")
+        $("#chart-1-label").text(stats["valid_https_perc"].toFixed(1).toString() + "%")
+        $("#chart-2-label").text(stats["defaults_to_https_perc"].toFixed(1).toString() + "%")
 
         // Initialize doughnut charts
         options = { 
