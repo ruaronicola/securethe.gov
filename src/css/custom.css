@@ -79,13 +79,16 @@ canvas{
 
 #content{
 	margin-top: 100px;
+	margin-bottom: 60px;
 }
 
 #content td.red{
 	color: red;
 }
 
-
+#content .sorting_1{
+	font-weight: bold;
+}
 
 /*footer*/
 
