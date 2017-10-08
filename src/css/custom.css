@@ -26,6 +26,11 @@
 
 /*header*/
 
+.Header-banner{
+	padding-left: 0;
+    padding-right: 0;
+}
+
 .site-header div{
 	color: #fff; 
 	text-align: center;
@@ -37,12 +42,14 @@
 	color: #f0f0f0;
 	font-size: 24px;
 	margin-right: 10px;
-	margin-top: 2px;
-}
+	line-height: 24px;
+	vertical-align: middle;
+	}
 
 .site-header a i{
-	font-size: 28px;
-	margin: 0;
+	font-size: 20px;
+	line-height: 20px;
+	vertical-align: middle;
 }
 
 
@@ -157,8 +164,8 @@ footer ul li{
 /* media query*/
 
 @media only screen and (max-width: 768px) {
-	.no-mobile{
-		display:none;
+	.site-header div{
+	font-size: 14px;
 	}
 	
 	nav h1{
