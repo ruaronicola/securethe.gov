@@ -54,8 +54,9 @@ $(document).ready(function() {
             data: data
         })
     })
-
     // Initialize data table
+    var columns = ["domain", "valid_https", "default_to_https", "hsts", "hsts_preloaded", "host_graduating"]
+    var server_pages = ["https://pastebin.com/raw/mYmVvFVE", "https://pastebin.com/raw/xS1UNKab"]
     var table = $("#data-table").DataTable( {
         "processing": true,
         "serverSide": true,
@@ -65,9 +66,9 @@ $(document).ready(function() {
         "ajax": {
             url: "https://pastebin.com/raw/mYmVvFVE",
             type: "POST",
-            contentType: "json"
-            //url: "http://192.168.240.192:3000/rpc/hosts_scanned_param",
-            //contentBody: { "_domain" : "a", "_order_by" : "domain", "_from" : 200, "_for" : 10 }
+            contentType: "json",
+            //url: "http://192.168.240.192:3000/rpc/hosts_scanned_param?_domain=eq.&_order_by=eq.domain&_from=eq.0&_for=eq.10",
+            //contentBody: { "_domain" : table.search(), "_order_by" : columns[table.order()[0][0]], "_from" : table.page.info().page*table.page.len(), "_for" : table.page.len() }
         },
         "createdRow": function( row, data, dataIndex ) {
 			var live = data[4]
@@ -88,7 +89,8 @@ $(document).ready(function() {
         .on( 'page.dt',   function (){ 
             var info = table.page.info()
             console.log('Showing page: '+info.page+' of '+info.pages)
+            table.ajax.url(server_pages[info.page%2])
+            table.draw('page')
         })
-        .dataTable()
 
 } )
