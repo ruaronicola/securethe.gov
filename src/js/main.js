@@ -56,15 +56,17 @@ $(document).ready(function() {
     })
 
     // Initialize data table
-    $("#data-table").DataTable( {
+    var table = $("#data-table").DataTable( {
         "processing": true,
-        "pagingType": "full_numbers",
         "serverSide": true,
+        "paging": true,
+        "pageLength": 10,
+        "lengthChange": false,
         "ajax": {
-            url: "https://pastebin.com/raw/pGCMswmR",
+            url: "https://pastebin.com/raw/mYmVvFVE",
             type: "POST",
             contentType: "json"
-            //url: "http://192.168.240.192:3000/rpc/hosts_scanned_param?",
+            //url: "http://192.168.240.192:3000/rpc/hosts_scanned_param",
             //contentBody: { "_domain" : "a", "_order_by" : "domain", "_from" : 200, "_for" : 10 }
         },
         "createdRow": function( row, data, dataIndex ) {
@@ -74,4 +76,19 @@ $(document).ready(function() {
 			}
 		},
     } )
+
+    $('#data-table')
+        .on( 'order.dt',  function (){ 
+            var order = table.order()
+            console.log('Ordering on column '+order[0][0]+' ('+order[0][1]+')')
+        })
+        .on( 'search.dt', function (){
+            console.log('Currently applied global search: '+table.search())
+        })
+        .on( 'page.dt',   function (){ 
+            var info = table.page.info()
+            console.log('Showing page: '+info.page+' of '+info.pages)
+        })
+        .dataTable()
+
 } )
