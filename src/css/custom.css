@@ -123,6 +123,22 @@ p#chart-1-label, p#chart-2-label{
 	font-weight: bold;
 }
 
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
+	background-color: #06c;
+	top: 14px;
+	left: 8px;
+	font-family: "Titillium web", sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	line-height: 14px;
+	border: none;
+	box-shadow: none;
+	border-radius: 16px;
+
+}
+
 /*footer*/
 
 
@@ -156,6 +172,23 @@ footer ul li{
 	nav ul{
 		float: left;
 
+	}
+
+	.Footer{
+		padding-top: 1rem;
+	}
+
+	.Footer a{
+		font-size: 15px;
+	}
+
+	.Footer ul li a{
+		font-size: 12px;
+	}
+
+	footer ul li{
+		float: left;
+		padding: 0 10px;
 	}
 
 }
