@@ -14,6 +14,16 @@
 }
 
 
+/*disclaimer*/
+
+#disclaimer a {
+	text-align: right;
+	display: inline-block;
+	float: right;
+}
+
+
+
 /*header*/
 
 .site-header div{
@@ -24,8 +34,17 @@
 }
 
 .site-header i{
-	color: yellow;
+	color: #f0f0f0;
+	font-size: 24px;
+	margin-right: 10px;
+	margin-top: 2px;
 }
+
+.site-header a i{
+	font-size: 28px;
+	margin: 0;
+}
+
 
 nav, nav h1, nav a, nav a:hover{
 	background-color: #06c;
@@ -125,4 +144,18 @@ footer ul li{
 	.no-mobile{
 		display:none;
 	}
+	
+	nav h1{
+	display: flex;
+	}
+
+	nav h1::after{
+		clear: both;
+	}
+
+	nav ul{
+		float: left;
+
+	}
+
 }

@@ -15,6 +15,8 @@
 
 		 <!-- DataTables styles -->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.dataTables.min.css" />
+
 
 		<!--BOOTSTRAP-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
@@ -34,9 +36,11 @@
 		<header class="row Header u-hiddenPrint" role="banner">
 			<div class="Header-banner site-header">
 				<div id="disclaimer" class="disclaimer Header-owner Headroom-hideme">
-					<a id="disclaimer_close" href="">X</a>
-					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+					<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
 					Possible cookies or beta disclaimer
+					<a id="disclaimer_close" href="">
+						<i class="fa fa-times" aria-hidden="true"></i>
+					</a>
 				</div> <!-- /Disclaimer -->
 			</div>
 			<nav role="nav" class="container-fluid">
@@ -59,7 +63,7 @@
 		<section  class="container" id="dashboard">
 				<div>
 					<h1 class="bold">Tutti i siti governativi dovrebbero essere sicuri</h1>
-					<h2>Il protocollo HTTPS abilita la sicurezza, protegge la privacy e previene la censura <br/> Noi tracciamo al sua adozione.</h2>
+					<h2>Il protocollo HTTPS abilita la sicurezza, protegge la privacy e previene la censura <br/> Noi tracciamo la sua adozione.</h2>
 				</div>
 			<!-- Doughnut chart -->
 				<div class="row">
@@ -77,15 +81,15 @@
 		</section> <!-- /Dashboard -->
 
 		<section  class="container" id="content">
-			<table class="table Table Table--striped Table--hover Table--withBorder" id="data-table">
+			<table id="data-table" class="display responsive nowrap Table Table--striped Table--hover Table--withBorder" cellspacing="0" width="100%" >
 				<thead>
 					<tr>
-						<th scope="col">Domain</th>
-						<th scope="col" class="no-mobile">Valid HTTPS</th>
-						<th scope="col" class="no-mobile">Default to HTTPS</th>
-						<th scope="col" class="no-mobile">HSTS</th>
-						<th scope="col" class="no-mobile">HSTS preloaded</th>
-						<th scope="col">Grade</th>
+						<th scope="col" data-priority="1">Domain</th>
+						<th scope="col" data-priority="3">Valid HTTPS</th>
+						<th scope="col" data-priority="4">Default to HTTPS</th>
+						<th scope="col" data-priority="5">HSTS</th>
+						<th scope="col" data-priority="6">HSTS preloaded</th>
+						<th scope="col" data-priority="2">Grade</th>
 					</tr>
 				</thead>
 			</table>
@@ -118,7 +122,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 		<!-- DataTables scripts -->
-		<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
 
 		<!-- Chart.js scripts -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
