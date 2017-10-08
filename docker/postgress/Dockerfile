@@ -36,7 +36,11 @@ RUN  wget https://github.com/begriffs/postgrest/releases/download/v0.4.3.0/postg
 RUN tar xvf postgrest-v0.4.3.0-ubuntu.tar.xz
 
 RUN mv postgrest /usr/local/bin/postgrest
-RUN cp $DB_HOME/postgrest.conf /etc/postgrest.conf
+RUN wget https://github.com/ruaronicola/securethe.gov/blob/master/docker/postgress/postgrest.conf
+RUN mv postgrest.conf /etc/postgrest.conf
+RUN wget https://github.com/ruaronicola/securethe.gov/blob/master/docker/postgress/dump_all_API
+
+
 
 RUN groupadd -r db_home \
   && useradd -r -c "db user" -g db_home db_home \
@@ -47,6 +51,10 @@ RUN groupadd -r db_home \
 USER postgres
 
 
+USER postgres
+#RUN createdb  securethegov
+#RUN pg_restore --host=localhost --dbname=securethegov --username=postgres dump_all_API
+
 
 # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
 # then create a database `docker` owned by the ``docker`` role.
@@ -56,14 +64,11 @@ USER postgres
 RUN    /etc/init.d/postgresql start &&\
     psql --command "ALTER USER postgres WITH PASSWORD 'postgres';"
 
+#RUN pg_restore securethegov  dump_all_API
+
 ###
 # restore data
 
-
-#WORKDIR  $DB_HOME
-RUN echo $DB_HOME
-#RUN /bin/sh $DB_HOME/postgress/restoredb.sh
-#RUN psql securethegov <
 
 
 # Adjust PostgreSQL configuration so that remote connections to the
