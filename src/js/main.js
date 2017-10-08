@@ -27,15 +27,33 @@ $(document).ready(function() {
             type: "doughnut",
             data: data
         })
+
+
+        ctx = $("#chart-2")
+        data = {
+            labels: ["Valid HTTPS", "Invalid HTTPS"],
+            datasets: [{
+                data: [valid_https, 100-valid_https],
+                backgroundColor: ["#6ecd1b", "#ffffff"]
+            }]
+        }
+        var myDoughnutChart2 = new Chart(ctx, {
+            type: "doughnut",
+            data: data
+        })
     })
 
     // Initialize data table
     $("#data-table").DataTable( {
         "processing": true,
+        "pagingType": "full_numbers",
         "serverSide": true,
         "ajax": {
-        	url: "https://pastebin.com/raw/pGCMswmR",
-        	type: "POST"
+          //url: "https://pastebin.com/raw/pGCMswmR",
+        	url: "http://192.168.240.192:3000/rpc/hosts_scanned_param?",
+          contentType: "json",
+          contentBody: { "_domain" : "a", "_order_by" : "domain", "_from" : 200, "_for" : 10 },
+          type: "POST"
         },
         "createdRow": function( row, data, dataIndex ) {
 			var live = data[4]
