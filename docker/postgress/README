@@ -1,0 +1,12 @@
+
+
+docker build -< Dockerfile
+
+docker image list
+
+docker tag <id> postgres:latest
+
+
+create docker container
+
+docker run --name postgres postgres
