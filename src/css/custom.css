@@ -4,6 +4,10 @@
 	clear: all;
 }
 
+.bold{
+	font-weight: bold;
+}
+
 
 
 
@@ -54,7 +58,7 @@ nav ul li{
 }
 
 #dashboard h1{
-	margin-top: 40px;
+	margin-top: 80px;
 }
 
 #dashboard h2{
@@ -75,6 +79,24 @@ canvas{
 
 #content{
 	margin-top: 100px;
+}
+
+#content td.red{
+	color: red;
+}
+
+
+
+/*footer*/
+
+
+footer ul{
+	float: right;
+}
+
+footer ul li{
+	float: left;
+	padding: 0 30px;
 }
 
 
