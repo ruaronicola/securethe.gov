@@ -1,43 +1,46 @@
 $(document).ready(function() {
     // Retrieve chart 1 data
-    var valid_https = 0
-    var default_https = 0
+    var stats
     $.when(
         $.ajax({
             url: "http://192.168.240.192:3000/last_scan_stats",
             type: "GET",
             contentType: "json",
             success: function(data){
-                  valid_https = data[0]["valid_https_perc"]
-                  console.log(valid_https)
+                  stats = data[0]
+                  console.log(stats)
             }
         })
     ).then(function( data, textStatus, jqXHR ){
-        console.log(valid_https)
         // Initialize doughnut charts
-        ctx = $("#chart-1")
-        data = {
-            labels: ["Valid HTTPS", "Invalid HTTPS"],
-            datasets: [{
-                data: [valid_https, 100-valid_https],
-                backgroundColor: ["#6ecd1b", "#ffffff"]
-            }]
+        options = { 
+            legend: {display: false},
+            tooltip: {
+                // TODO disable or create custom tooltips
+                enabled: false
+            }
         }
-        var myDoughnutChart = new Chart(ctx, {
+
+        data = {
+            datasets: [{
+                data: [stats["valid_https_perc"], 100-stats["valid_https_perc"]],
+                backgroundColor: ["#6ecd1b", "#ffffff"]
+            }],
+            options: options
+        }
+        new Chart($("#chart-1"), {
             type: "doughnut",
             data: data
         })
 
-
-        ctx = $("#chart-2")
         data = {
-            labels: ["Valid HTTPS", "Invalid HTTPS"],
             datasets: [{
-                data: [valid_https, 100-valid_https],
+                data: [stats["defaults_to_https_perc"], 100-stats["defaults_to_https_perc"]],
                 backgroundColor: ["#6ecd1b", "#ffffff"]
-            }]
+            }],
+            options: options
         }
-        var myDoughnutChart2 = new Chart(ctx, {
+        new Chart($("#chart-2"), {
             type: "doughnut",
             data: data
         })
@@ -49,11 +52,11 @@ $(document).ready(function() {
         "pagingType": "full_numbers",
         "serverSide": true,
         "ajax": {
-          //url: "https://pastebin.com/raw/pGCMswmR",
-        	url: "http://192.168.240.192:3000/rpc/hosts_scanned_param?",
-          contentType: "json",
-          contentBody: { "_domain" : "a", "_order_by" : "domain", "_from" : 200, "_for" : 10 },
-          type: "POST"
+            url: "https://pastebin.com/raw/pGCMswmR",
+            type: "POST",
+            contentType: "json"
+            //url: "http://192.168.240.192:3000/rpc/hosts_scanned_param?",
+            //contentBody: { "_domain" : "a", "_order_by" : "domain", "_from" : 200, "_for" : 10 }
         },
         "createdRow": function( row, data, dataIndex ) {
 			var live = data[4]
