@@ -1,5 +1,11 @@
 $(document).ready(function() {
-    // Retrieve chart 1 data
+    // Setup disclaimer
+    $("#disclaimer_close").on("click", function(ev){
+        ev.preventDefault()
+        $("#disclaimer").hide()
+    })
+
+    // Retrieve chart data
     var stats
     $.when(
         $.ajax({
