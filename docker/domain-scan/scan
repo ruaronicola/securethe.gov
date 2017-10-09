@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+from scanners import utils
+import datetime
+import logging
+import requests
+import importlib
+import shutil
+import csv
+from concurrent.futures import ThreadPoolExecutor
+
+# basic setup - logs, output dirs
+options = utils.options()
+domain_suffix = options.get("suffix")
+utils.configure_logging(options)
+utils.mkdir_p(utils.cache_dir())
+utils.mkdir_p(utils.results_dir())
+
+# some metadata about the scan itself
+start_time = utils.utc_timestamp()
+start_command = str.join(" ", sys.argv)
+
+###
+# Entry point. `options` is a dict of CLI flags.
+###
+
+
+def run(options=None):
+
+    if not options["_"]:
+        logging.error("Provide a CSV file, or domain name.")
+        exit(1)
+
+    if not options.get("scan"):
+        logging.error("--scan must be one or more scanners.")
+        exit(1)
+
+    # `domains` can be either a path or a domain name.
+    # It can also be a URL, and if it is we want to download it now,
+    # and then adjust the value to be the path of the cached download.
+    domains = options["_"][0]
+
+    if domains.startswith("http:") or domains.startswith("https:"):
+
+        domains_path = os.path.join(utils.cache_dir(), "domains.csv")
+
+        try:
+            response = requests.get(domains)
+            utils.write(response.text, domains_path)
+        except:
+            logging.error("Domains URL not downloaded successfully.")
+            print(utils.format_last_exception())
+            exit(1)
+
+        domains = domains_path
+
+    # Which scanners to run the domain through.
+    scans = []
+
+    for name in options.get("scan").split(","):
+        try:
+            scanner = importlib.import_module("scanners.%s" % name)
+        except ImportError:
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            logging.error("[%s] Scanner not found, or had an error during loading.\n\tERROR: %s\n\t%s" % (name, exc_type, exc_value))
+            exit(1)
+
+        # If the scanner has a canonical command, make sure it exists.
+        if hasattr(scanner, "command") and scanner.command and (not utils.try_command(scanner.command)):
+            logging.error("[%s] Command not found: %s" %
+                          (name, scanner.command))
+            exit(1)
+
+        # Scanners can have an optional init/validation hook.
+        if hasattr(scanner, "init") and scanner.init and (not scanner.init(options)):
+            logging.error("[%s] Scanner's init hook returned false." % name)
+            exit(1)
+
+        scans.append(scanner)
+
+    scan_domains(scans, domains)
+
+
+###
+# Given the selected scanners, and input domains, run each domain
+# through each scanner.
+#
+# Produces a CSV for each scan, with each domain and results.
+###
+def scan_domains(scanners, domains):
+
+    # Clear out existing result CSVs, to avoid inconsistent data.
+    for result in glob.glob("%s/*.csv" % utils.results_dir()):
+        os.remove(result)
+
+    # Run through each scanner and open a file and CSV for each.
+    handles = {}
+    for scanner in scanners:
+        name = scanner.__name__.split(".")[-1]  # e.g. 'pshtt'
+        scanner_filename = "%s/%s.csv" % (utils.results_dir(), name)
+        scanner_file = open(scanner_filename, 'w', newline='')
+        scanner_writer = csv.writer(scanner_file)
+        scanner_writer.writerow(["Domain", "Base Domain"] + scanner.headers)
+
+        handles[scanner] = {
+            'file': scanner_file,
+            'filename': scanner_filename,
+            'writer': scanner_writer
+        }
+
+    # The task wrapper that's parallelized using executor.map.
+    def process_scan(params):
+        scanner, domain, options = params
+
+        # A scanner can return multiple rows.
+        try:
+            rows = list(scanner.scan(domain, options))
+        except:
+            logging.warn(utils.format_last_exception())
+
+        if rows:
+            for row in rows:
+                if row:
+                    handles[scanner]['writer'].writerow([domain, utils.base_domain_for(domain)] + row)
+
+    # Run each scanner (unique process pool) over each domain.
+    # User can force --serial, and scanners can override default of 10.
+    for scanner in scanners:
+
+        if options.get("serial"):
+            workers = 1
+        elif hasattr(scanner, "workers"):
+            workers = scanner.workers
+        else:
+            workers = int(options.get("workers", 10))
+
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            tasks = ((scanner, domain, options) for domain in domains_from(domains))
+            executor.map(process_scan, tasks)
+
+    # Close up all the files, --sort if requested (expensive).
+    for scanner in scanners:
+        handles[scanner]['file'].close()
+        if options.get("sort"):
+            utils.sort_csv(handles[scanner]['filename'])
+
+    logging.warn("Results written to CSV.")
+
+    # Save metadata.
+    metadata = {
+        'start_time': start_time,
+        'end_time': utils.utc_timestamp(),
+        'command': start_command
+    }
+    utils.write(utils.json_for(metadata), "%s/meta.json" % utils.results_dir())
+
+
+# Yield domain names from a single string, or a CSV of them.
+def domains_from(arg):
+    if arg.endswith(".csv"):
+        with open(arg, encoding='utf-8', newline='') as csvfile:
+            for row in csv.reader(csvfile):
+                if (not row[0]) or (row[0].lower().startswith("domain")):
+                    continue
+                domain = row[0].lower()
+                if domain_suffix:
+                    yield "%s.%s" % (domain, domain_suffix)
+                else:
+                    yield domain
+    else:
+        yield arg
+
+
+if __name__ == '__main__':
+    run(options)
