@@ -42,6 +42,6 @@ docker run --name nome_del_container  nome_immagine
 
 ## Screenshots
 #### Dashboard
-![screenshot 1](src/img/screenshot1.png)
+![graph](src/img/graph.png)
 #### Pagination
-![screenshot 1](src/img/screenshot2.png)
+![pagination](src/img/table_items.png)
